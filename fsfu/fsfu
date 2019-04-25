@@ -1,0 +1,24 @@
+#!/bin/bash
+
+array=(itype dblockvalid1 dblockvalid2 roote dot parent binode1 binode2 dupaddr1 dupaddr2 iref1 iref2 refc dlink false control)
+
+score=0
+make restore
+for ((i = 0; i < 14; i++)); do
+    echo "running test ${array[$i]}"
+    ./${array[$i]} fs.img
+#    $1 fs.img
+    score=$(($score + $?))
+    make restore
+done
+
+for ((i = 14; i < 16; i++)); do
+    echo "running test ${array[$i]}"
+    ./${array[$i]} fs.img
+#	 $1 fs.img
+    ret=$?
+    score=$(($score + $((1 - $ret))))
+    make restore
+done
+
+echo "$score / ${#array[*]}"
