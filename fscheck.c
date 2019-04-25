@@ -87,7 +87,7 @@ int main (int argc, char* argv[]) {
   memcpy(&superBlock, blockBuffer, sizeof(struct superblock));
   ninodes = superBlock.ninodes;
   //calculate size of inode table
-  inodes_blocks = superBlock.ninodes / IPB + 1;
+  inodes_blocks = superBlock.ninodes / IPB;
   struct dinode inodeTable[inodes_blocks * IPB];
   //for debugging
   // printf("%u\n%u\n%u\n",superBlock.size,superBlock.nblocks,superBlock.ninodes);
